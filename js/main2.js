@@ -10,8 +10,9 @@
 var numeriGeneratiPc = []; // creiamo un array con all'interno
 console.log(numeriGeneratiPc);
 var contenitoreTentavivi = []; // creiamo un array che conterrà il numero di tentavivi
+var contenitoreTentaviviOrdinato = contenitoreTentavivi.sort();
 
-var difficolta = prompt("seleziona la difficolta: scegli tra 1 - 2 - 3");
+var difficolta = parseInt(prompt("seleziona la difficolta: scegli tra 1 - 2 - 3"));
 
 for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casualmente dalla nostra funzione) + aggiunto il N di tentativi
         switch (difficolta) { // in base alla difficolta metterà il livello relativo
@@ -35,10 +36,11 @@ for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casual
 // CREATO 16 MINE
 console.log(numeriGeneratiPc.length);
 
-for (var i = 0; i < possibilta; i++) { // ciclo for che mi permette di far 84 volte
+for (var i = 0; i < possibilita; i++) {
     var tentativi = parseInt(prompt("inserisci un tentativo, seleziona un numero da 1 a 100"));
     if (numeriGeneratiPc.includes(tentativi)) {
         alert("HAI PERSO, FINE DEL GIOCO"); // con il ciclo while SE HAI PERSO non devi continuare LINEA 45
+        break
     } else if (!contenitoreTentavivi.includes(tentativi)) {
         contenitoreTentavivi.push(tentativi); // se non c'è il numero lo aggiungi all'arrey dei numero tirati
     } else {

@@ -10,6 +10,8 @@
 var numeriGeneratiPc = []; // creiamo un array con all'interno
 console.log(numeriGeneratiPc);
 
+var numeriGeneratiPcordinati = numeriGeneratiPc.sort();
+
 for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casualmente dalla nostra funzione) + aggiunto il N di tentativi
         var numeriRandom = generaRandom(1, 100); // usiamo la ns funzione e insiamo le variabili 1, 100
         if (!numeriGeneratiPc.includes(numeriRandom) && numeriGeneratiPc.length < 16) { // se non cè il numero creato random aggiungilo + con 2 condizioni, una è che non ci sia il numero creato, l'altra è che la lunghezza dell'array sia <16
