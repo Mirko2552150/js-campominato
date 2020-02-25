@@ -9,9 +9,25 @@
 
 var numeriGeneratiPc = []; // creiamo un array con all'interno
 console.log(numeriGeneratiPc);
+var contenitoreTentavivi = []; // creiamo un array che conterrà il numero di tentavivi
+
+var difficolta = prompt("seleziona la difficolta: scegli tra 1 - 2 - 3");
 
 for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casualmente dalla nostra funzione) + aggiunto il N di tentativi
-        var numeriRandom = generaRandom(1, 100); // usiamo la ns funzione e insiamo le variabili 1, 100
+        switch (difficolta) { // in base alla difficolta metterà il livello relativo
+            case 1:
+            var numeriRandom = generaRandom(1, 100);
+            var possibilita = 84;
+                break;
+            case 2: generaRandom(1, 80);
+            var possibilita = 64;
+                break;
+            case 3: generaRandom(1, 50);
+            var possibilita = 34;
+                break;
+            default:
+            console.log("non hai selazionato alcuna difficolta");
+        }
         if (!numeriGeneratiPc.includes(numeriRandom) && numeriGeneratiPc.length < 16) { // se non cè il numero creato random aggiungilo + con 2 condizioni, una è che non ci sia il numero creato, l'altra è che la lunghezza dell'array sia <16
             numeriGeneratiPc.push(numeriRandom); // aggiungiamo i numeri al nostro array
         }
@@ -19,20 +35,17 @@ for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casual
 // CREATO 16 MINE
 console.log(numeriGeneratiPc.length);
 
-var contenitoreTentavivi = []; // creiamo un array che conterrà il numero di tentavivi
-
-for (var i = 0; i < 84; i++) { // ciclo for che mi permette di far 84 volte
+for (var i = 0; i < possibilta; i++) { // ciclo for che mi permette di far 84 volte
     var tentativi = parseInt(prompt("inserisci un tentativo, seleziona un numero da 1 a 100"));
     if (numeriGeneratiPc.includes(tentativi)) {
-        alert("HAI PERSO, FINE DEL GIOCO");
-        break
+        alert("HAI PERSO, FINE DEL GIOCO"); // con il ciclo while SE HAI PERSO non devi continuare LINEA 45
     } else if (!contenitoreTentavivi.includes(tentativi)) {
         contenitoreTentavivi.push(tentativi); // se non c'è il numero lo aggiungi all'arrey dei numero tirati
     } else {
         parseInt(prompt("numero già selezionato, scegline un altro")) // messaggio ripetizione
     }
+    console.log(contenitoreTentavivi);
 }
-console.log("i numeri corretti selezionati sono: " + contenitoreTentavivi);
 
 // CHIEDERE COME METTERE HAI VINTO ED IL TERMINE DELLE DOMANDE ALLA FINE DEL CICLO (USATO ALERT)
 
