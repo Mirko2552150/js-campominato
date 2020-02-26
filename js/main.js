@@ -1,44 +1,60 @@
-// SCOPO DEL GIOCO:
-// 1. Il computer deve generare 16 numeri casuali tra 1 e 100. ok
-// 2. In seguito deve chiedere all’utente di inserire un numero alla volta, sempre compreso tra 1 e 100. ok
-// 3. Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
-// 4. La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
-// 5. Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-// 6. BONUS: all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali.
-//           Con difficoltà 0=> tra 1 e 100, con difficoltà 1 =>  tra 1 e 80, con difficoltà 2=> tra 1 e 50
+// CAMPO MINATO EASY
 
-var numeriGeneratiPc = []; // creiamo un array con all'interno
-console.log(numeriGeneratiPc);
-
-var numeriGeneratiPcordinati = numeriGeneratiPc.sort();
-
-for (var i = 0; i < 100; i++) { // ciclo per 16 (con i ns numeri generati casualmente dalla nostra funzione) + aggiunto il N di tentativi
-        var numeriRandom = generaRandom(1, 100); // usiamo la ns funzione e insiamo le variabili 1, 100
-        if (!numeriGeneratiPc.includes(numeriRandom) && numeriGeneratiPc.length < 16) { // se non cè il numero creato random aggiungilo + con 2 condizioni, una è che non ci sia il numero creato, l'altra è che la lunghezza dell'array sia <16
-            numeriGeneratiPc.push(numeriRandom); // aggiungiamo i numeri al nostro array
-        }
-    }
-// CREATO 16 MINE
-console.log(numeriGeneratiPc.length);
-
-var contenitoreTentavivi = []; // creiamo un array che conterrà il numero di tentavivi
-
-for (var i = 0; i < 84; i++) { // ciclo for che mi permette di far 84 volte
-    var tentativi = parseInt(prompt("inserisci un tentativo, seleziona un numero da 1 a 100"));
-    if (numeriGeneratiPc.includes(tentativi)) {
-        alert("HAI PERSO, FINE DEL GIOCO");
-        break
-    } else if (!contenitoreTentavivi.includes(tentativi)) {
-        contenitoreTentavivi.push(tentativi); // se non c'è il numero lo aggiungi all'arrey dei numero tirati
-    } else {
-        parseInt(prompt("numero già selezionato, scegline un altro")) // messaggio ripetizione
+var numeriMine = [];
+var numeriUtente = [];
+var mine = 16;
+var dimensioneCampo = sceltaDifficolta();
+var tentativiMax = dimensioneCampo - mine;
+while (numeriMine.length < mine) { //Inserisce 16 mine
+    var numeriRandomMine = generaRandomMinMax(1, dimensioneCampo); // il N RANDOM DENTRO IL CICLO
+    if (!numeriMine.includes(numeriRandomMine)) {
+        numeriMine.push(numeriRandomMine);
     }
 }
-console.log("i numeri corretti selezionati sono: " + contenitoreTentavivi);
-
-// CHIEDERE COME METTERE HAI VINTO ED IL TERMINE DELLE DOMANDE ALLA FINE DEL CICLO (USATO ALERT)
-
-function generaRandom(min, max) {
-    numeroRandom = Math.floor(Math.random() * (max - min + 1)) + min;
+console.log(numeriMine);
+while (numeriUtente.length < tentativiMax) { // lunghezza
+    var inputUtente = parseInt(prompt("inserisci un un numero da 1 a 100"));
+    if (!isNaN(inputUtente)) {
+        if (!numeriUtente.includes(inputUtente)) { // se l'inputUtente non è incluso andiamo avanti
+            if (!numeriMine.includes(inputUtente)) { // se numero untente non è incliso nell'elenco numeri mine allora mine
+                numeriUtente.push(inputUtente);
+                if (numeriUtente === tentativiMax) {
+                    alert('Hai Vinto!')
+                }
+            } else {
+                alert("ESPLODI")
+                break;
+            }
+        } else {
+            alert("HAI GIA INSERITO IL NUMERO")
+        }
+    } else {
+        alert ('metti un numero!!!')
+    }
+}
+// FUNZIONI
+function sceltaDifficolta(){
+    var decidiDifficolta = parseInt(prompt('decidi livello difficoltà: 1, 2 o 3'));
+    if (!isNaN(decidiDifficolta)) {
+        switch (decidiDifficolta) {
+            case 1:
+                dimensioneCampo = 100;
+                break;
+            case 2:
+                dimensioneCampo = 80;
+                break;
+            case 3:
+                dimensioneCampo = 17;
+                break;
+            default:
+                dimensioneCampo = 100;
+        }
+    } else {
+        alert ('inserisci un  numero da 1 a 3');
+    } return dimensioneCampo;
+}
+// funzione che genera un numero random tra due valori dati in ingresso MIN e MAX, estremi inclusi
+function generaRandomMinMax(min, max) {
+    var numeroRandom = Math.floor(Math.random() * (max - min + 1)) + min;
     return numeroRandom;
 }
